@@ -1,0 +1,181 @@
+@function slideshow-url($path) {
+  @return url("../local/slideshow/assets/#{$path}");
+}
+
+.slideshow {
+  overflow: hidden;
+  position: relative;
+  height: 456px;
+}
+
+/*
+  Slides
+ */
+.slideshow__slide {
+  @include border-box;
+  @include transition(all 700ms ease-in-out-quad());
+  position: absolute;
+  height: 456px;
+  top: 0;
+  width: 100%;
+  opacity: 0;
+  background: white;
+}
+
+.slideshow__slide[data-state="previous"] {
+  display: block;
+  opacity: 0;
+  .no-csstransitions & {
+    opacity: 1;
+  }
+}
+
+.slideshow__slide[data-state="next"] {
+  display: block;
+  opacity: 0;
+  .no-csstransitions & {
+    opacity: 1;
+  }
+}
+
+.slideshow__slide[data-state="current"] {
+  display: block;
+  opacity: 1;
+  z-index: 1;
+  .no-csstransitions & {
+    display: block;
+  }
+}
+
+.slideshow__slide.no-transitions {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  transition: none !important;
+}
+
+.no-csstransitions .slideshow__slide {
+  display: none;
+}
+
+/*
+  Slide image
+ */
+.slideshow__slide img {
+  min-width: 100%;
+  height: auto;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  transform: translateX(-50%);
+  position: relative;
+}
+
+/*
+  Slide label
+ */
+.slideshow__slide-label{
+  bottom: 55px;
+  color: white;
+  left: 50%;
+  font-size: 18px;
+  position: absolute;
+  text-align: right;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  transform: translateX(-50%);
+  width: 960px;
+  z-index: 1000;
+}
+
+.location {
+  font-weight: 400;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.location i {
+  margin-right: 5px;
+  position: relative;
+  top: -2px;
+}
+
+/*
+  Slideshow indicators
+ */
+.slideshow__indicators {
+  @include transform(translateX(-50%));
+  bottom: 110px;
+  left: 50%;
+  position: absolute;
+  text-align: right;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  transform: translateX(-50%);
+  width: 960px;
+  z-index: 5000;
+}
+
+.slideshow__indicator {
+  @include border-box;
+  background: #eee;
+  background: rgba(#fff, 0.3);
+  border-radius: 16px;
+  border: 1px solid #fff;
+  cursor: pointer;
+  display: inline-block;
+  height: 16px;
+  margin: 0 3px;
+  overflow: hidden;
+  vertical-align:top;
+  width: 16px;
+  zoom: 1;
+}
+
+.slideshow__indicator.is-active {
+  background: #fff;
+}
+
+/*
+  Create the transparent arrow at the bottom of the slider
+*/
+.slideshow__footer {
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 1000;
+  zoom: 1;
+}
+
+.slideshow__footer-panel {
+  background: #eee;
+  display: block;
+  height: 10px;
+  position: relative;
+  width: 49.5%;
+}
+
+@media (min-width: 1200px){
+  .slideshow__footer-panel {
+    width: 49.7%;
+  }
+}
+
+.slideshow__footer-panel:after {
+  bottom: 0;
+  content: "";
+  position: absolute;
+}
+
+.slideshow__footer-panel.panel-left:after {
+  border-bottom: 10px solid #eee;
+  border-left: 0px solid transparent;
+  border-right: 6px solid transparent;
+  right: -6px;
+}
+
+.slideshow__footer-panel.panel-right:after {
+  border-bottom: 10px solid #eee;
+  border-left: 6px solid transparent;
+  border-right: 0px solid transparent;
+  left: -6px;
+}
